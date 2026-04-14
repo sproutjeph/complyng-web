@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/jephthah/Desktop/complyng/docs/**)",
+      "Bash(python3 -c ':*)",
+      "Bash(textutil -convert txt -stdout 'ComplyNG_PRD_v2 \\(1\\).docx')",
+      "Skill(shadcn)"
+    ]
+  }
+}
