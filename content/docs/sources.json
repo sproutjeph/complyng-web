@@ -1,0 +1,41 @@
+{
+  "description": "Regulatory source documents for RAG ingestion. Drop PDFs or .md files into this directory, named matching the 'file' field. Missing files are skipped with a warning.",
+  "sources": [
+    {
+      "frameworkCode": "NDPC",
+      "file": "ndpa-2023.pdf",
+      "sourceUrl": "https://ndpc.gov.ng/Files/Nigeria_Data_Protection_Act_2023.pdf",
+      "statute": "Nigeria Data Protection Act 2023"
+    },
+    {
+      "frameworkCode": "NDPC-GAID",
+      "file": "gaid-2025.md",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "statute": "General Application and Implementation Directive 2025 (working summary; replace with gaid-2025.pdf when available)"
+    },
+    {
+      "frameworkCode": "NITDA",
+      "file": "nitda-code-of-practice-2022.pdf",
+      "sourceUrl": "https://nitda.gov.ng/wp-content/uploads/2022/06/Code-of-Practice-for-Interactive-Computer-Service-Platforms.pdf",
+      "statute": "NITDA Code of Practice for Interactive Computer Service Platforms 2022"
+    },
+    {
+      "frameworkCode": "CBN",
+      "file": "cbn-rbcf-ofis-2022.pdf",
+      "sourceUrl": "https://www.cbn.gov.ng/Out/2022/CCD/Risk-Based%20Cybersecurity%20Framework%20for%20OFIs.pdf",
+      "statute": "CBN Risk-Based Cybersecurity Framework for OFIs 2022"
+    },
+    {
+      "frameworkCode": "NCC",
+      "file": "ncc-consumer-code-2007.pdf",
+      "sourceUrl": "https://www.ncc.gov.ng/documents/127-consumer-code-of-practice-regulations-2007/file",
+      "statute": "NCC Consumer Code of Practice Regulations 2007"
+    },
+    {
+      "frameworkCode": "SEC",
+      "file": "sec-digital-assets-rules-2022.pdf",
+      "sourceUrl": "https://sec.gov.ng/wp-content/uploads/2022/05/New-Rules-on-Issuance-Offering-Platforms-and-Custody-of-Digital-Assets.pdf",
+      "statute": "SEC Rules on Digital Assets 2022"
+    }
+  ]
+}
