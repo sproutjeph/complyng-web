@@ -33,9 +33,18 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# fetched regulatory PDFs (large, re-fetchable)
+/content/docs/*.pdf
+
+# user-uploaded policies (hackathon stores to local disk; use object storage in prod)
+/data/policies/
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# clerk configuration (can include secrets)
+/.clerk/

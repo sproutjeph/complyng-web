@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: complyng-postgres
+    environment:
+      POSTGRES_USER: complyng
+      POSTGRES_PASSWORD: complyng
+      POSTGRES_DB: complyng
+    ports:
+      - "5432:5432"
+    volumes:
+      - complyng-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U complyng -d complyng"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  complyng-pgdata:
