@@ -1,0 +1,64 @@
+{
+  "code": "SEC",
+  "name": "Securities and Exchange Commission Nigeria",
+  "statute": "Rules on Issuance, Offering Platforms and Custody of Digital Assets 2022",
+  "sourceUrl": "https://sec.gov.ng/",
+  "appliesTo": ["vasp", "fintech"],
+  "obligations": [
+    {
+      "code": "SEC-VASP-001",
+      "title": "Register as a Virtual Asset Service Provider",
+      "description": "Operators of digital asset offering platforms, exchanges, and custodians must register with SEC before carrying on business in Nigeria.",
+      "clauseRef": "Digital Assets Rules 2022 Part A Rule 1",
+      "sourceUrl": "https://sec.gov.ng/",
+      "trigger": { "type": "if_offers_digital_assets" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "SEC-QREPORT-002",
+      "title": "File quarterly operating and compliance returns",
+      "description": "File quarterly returns covering volumes, AUC, open complaints, suspicious activity reports filed, and any regulatory breaches.",
+      "clauseRef": "Digital Assets Rules 2022 Rule 12",
+      "sourceUrl": "https://sec.gov.ng/",
+      "trigger": { "type": "if_sec_licensed" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 30 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "SEC-CUSTODY-003",
+      "title": "Maintain segregated client asset custody",
+      "description": "Custody client digital assets in wallets segregated from operational funds, with documented key management and insurance where applicable.",
+      "clauseRef": "Digital Assets Rules 2022 Part C Rule 8",
+      "sourceUrl": "https://sec.gov.ng/",
+      "trigger": { "type": "if_offers_digital_assets" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "SEC-DISCLOSURE-004",
+      "title": "Publish investor disclosures for digital-asset offerings",
+      "description": "For each digital-asset offering on a Nigerian platform, publish an SEC-approved disclosure document covering risks, rights, custody, and fees before go-live.",
+      "clauseRef": "Digital Assets Rules 2022 Part B Rule 4",
+      "sourceUrl": "https://sec.gov.ng/",
+      "trigger": { "type": "if_offers_digital_assets" },
+      "dueRule": { "type": "within_days_of_event", "days": 14, "event": "New offering listed" },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "SEC-AML-005",
+      "title": "AML/CFT programme aligned with SEC & NFIU",
+      "description": "Operate a written AML/CFT programme covering customer due diligence, transaction monitoring, sanctions screening, and STR filing with NFIU.",
+      "clauseRef": "Digital Assets Rules 2022 Rule 15 & AML Act 2022",
+      "sourceUrl": "https://sec.gov.ng/",
+      "trigger": { "type": "if_offers_digital_assets" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}

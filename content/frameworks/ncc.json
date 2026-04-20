@@ -1,0 +1,64 @@
+{
+  "code": "NCC",
+  "name": "Nigerian Communications Commission",
+  "statute": "Consumer Code of Practice Regulations 2007 & Quality of Service Regulations",
+  "sourceUrl": "https://www.ncc.gov.ng/",
+  "appliesTo": ["telco", "digital_service_provider"],
+  "obligations": [
+    {
+      "code": "NCC-CODE-001",
+      "title": "Publish a General Consumer Code of Practice",
+      "description": "Publish and maintain a NCC-approved Consumer Code of Practice covering service descriptions, billing, complaint handling, and privacy.",
+      "clauseRef": "CCP Regs 2007 \u00a78",
+      "sourceUrl": "https://www.ncc.gov.ng/",
+      "trigger": { "type": "if_ncc_licensed" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NCC-QOS-002",
+      "title": "Submit Quality of Service reports",
+      "description": "File monthly QoS performance reports (call setup success rate, drop call rate, data latency where applicable) to NCC.",
+      "clauseRef": "QoS Regs 2024 \u00a75",
+      "sourceUrl": "https://www.ncc.gov.ng/",
+      "trigger": { "type": "if_ncc_licensed" },
+      "dueRule": { "type": "monthly", "dayOfMonth": 10 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NCC-SIM-003",
+      "title": "SIM registration & NIN linkage",
+      "description": "Register subscribers under the NCC / NIMC SIM registration framework with verified NIN, retain records, and disable unlinked SIMs.",
+      "clauseRef": "SIM Registration Regs 2011 & NIN-SIM Policy 2020",
+      "sourceUrl": "https://www.ncc.gov.ng/",
+      "trigger": { "type": "if_ncc_licensed" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NCC-OUTAGE-004",
+      "title": "Report major service outages",
+      "description": "Report outages affecting >10,000 subscribers or critical infrastructure to NCC within 4 hours, with full RCA within 14 days.",
+      "clauseRef": "Incident Reporting Framework 2021",
+      "sourceUrl": "https://www.ncc.gov.ng/",
+      "trigger": { "type": "if_ncc_licensed" },
+      "dueRule": { "type": "within_days_of_event", "days": 1, "event": "Major service outage" },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NCC-LEVY-005",
+      "title": "Pay Annual Operating Levy (AOL)",
+      "description": "Pay the Annual Operating Levy computed on net operating revenue by the due date set in the current AOL circular.",
+      "clauseRef": "NCC Act 2003 s.17 & AOL Circular",
+      "sourceUrl": "https://www.ncc.gov.ng/",
+      "trigger": { "type": "if_ncc_licensed" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}

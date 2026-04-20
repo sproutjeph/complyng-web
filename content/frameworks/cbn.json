@@ -1,0 +1,97 @@
+{
+  "code": "CBN",
+  "name": "Central Bank of Nigeria",
+  "statute": "Risk-Based Cybersecurity Framework & Guidelines for OFIs / PSPs (2022)",
+  "sourceUrl": "https://www.cbn.gov.ng/",
+  "appliesTo": ["fintech", "vasp"],
+  "obligations": [
+    {
+      "code": "CBN-POLICY-001",
+      "title": "Board-approved cybersecurity policy",
+      "description": "Maintain a board-approved, annually reviewed cybersecurity policy aligned with the CBN Risk-Based Cybersecurity Framework for Other Financial Institutions.",
+      "clauseRef": "RBCF \u00a73.1",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-CISO-002",
+      "title": "Appoint a Chief Information Security Officer",
+      "description": "Designate a qualified CISO reporting to executive management, with defined authority over cybersecurity controls and incident response.",
+      "clauseRef": "RBCF \u00a74.2",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-RISK-003",
+      "title": "Annual cyber risk assessment",
+      "description": "Conduct and document a cybersecurity risk assessment annually; feed findings into the board's risk appetite statement.",
+      "clauseRef": "RBCF \u00a75",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-INCIDENT-004",
+      "title": "Report cyber incidents to CBN within 24 hours",
+      "description": "Report material cyber incidents (service disruption, data compromise, fraud loss thresholds) to the CBN Incident Response Team within 24 hours of detection.",
+      "clauseRef": "RBCF \u00a78.3",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "within_days_of_event", "days": 1, "event": "Material cyber incident" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-PENTEST-005",
+      "title": "Independent penetration testing",
+      "description": "Commission independent penetration testing of critical systems at least annually and remediate Critical/High findings within the mandated windows.",
+      "clauseRef": "RBCF \u00a76.4",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "annual", "month": 9, "day": 30 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-BCP-006",
+      "title": "Tested business continuity & disaster recovery plan",
+      "description": "Maintain and test BCP/DR plans at least annually, including failover to the DR site for critical services.",
+      "clauseRef": "RBCF \u00a77",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_cbn_licensed" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-KYC-007",
+      "title": "Risk-based KYC / customer due diligence",
+      "description": "Operate risk-based customer identification and due diligence consistent with the CBN AML/CFT/CPF Regulations and BVN/NIN verification rules.",
+      "clauseRef": "AML/CFT/CPF Regs 2022 \u00a716",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBN-STR-008",
+      "title": "File Suspicious Transaction Reports with NFIU",
+      "description": "Detect, escalate, and file STRs with the Nigerian Financial Intelligence Unit within 24 hours of forming a suspicion.",
+      "clauseRef": "AML Act 2022 s.7",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "within_days_of_event", "days": 1, "event": "Suspicious transaction detected" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}

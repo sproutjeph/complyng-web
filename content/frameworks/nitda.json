@@ -1,0 +1,75 @@
+{
+  "code": "NITDA",
+  "name": "National Information Technology Development Agency",
+  "statute": "Code of Practice for Interactive Computer Service Platforms / Internet Intermediaries (2022)",
+  "sourceUrl": "https://nitda.gov.ng/",
+  "appliesTo": ["platform", "digital_service_provider", "telco"],
+  "obligations": [
+    {
+      "code": "NITDA-INC-001",
+      "title": "Incorporate a Nigerian legal entity (platforms of significant presence)",
+      "description": "Interactive computer service platforms of significant presence must incorporate a legal entity in Nigeria and appoint a country representative accessible to regulators.",
+      "clauseRef": "Code of Practice Part III \u00a7(1)(a)",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_users_over", "threshold": 100000 },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NITDA-REP-002",
+      "title": "Designate an in-country liaison for law enforcement requests",
+      "description": "Publish and maintain a designated liaison with a Nigerian address and 24/7 response capability for lawful takedown and disclosure requests.",
+      "clauseRef": "Code of Practice Part III \u00a7(1)(b)",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_entity_in", "entities": ["platform", "digital_service_provider", "telco"] },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NITDA-TAKEDOWN-003",
+      "title": "Act on lawful takedown notices within 24 hours",
+      "description": "Remove or disable access to non-consensual intimate imagery, CSAM, or content that is the subject of a lawful takedown order within 24 hours of notice.",
+      "clauseRef": "Code of Practice Part II \u00a7(4)",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_entity_in", "entities": ["platform", "digital_service_provider"] },
+      "dueRule": { "type": "within_days_of_event", "days": 1, "event": "Lawful takedown notice" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NITDA-COMPLAINTS-004",
+      "title": "Operate a complaint handling mechanism",
+      "description": "Provide a mechanism for users to report illegal, harmful, or policy-violating content and acknowledge reports within 48 hours.",
+      "clauseRef": "Code of Practice Part II \u00a7(3)",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_entity_in", "entities": ["platform", "digital_service_provider"] },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NITDA-REPORT-005",
+      "title": "Submit annual compliance report to NITDA",
+      "description": "File an annual compliance report covering takedowns, user complaints, moderation actions, and disclosed account information.",
+      "clauseRef": "Code of Practice Part V \u00a7(1)",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_entity_in", "entities": ["platform", "digital_service_provider"] },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NITDA-NDPR-006",
+      "title": "Maintain NDPR / NDPA filings with NITDA-licensed DPCO",
+      "description": "Carry over NDPR-era audit filings (pre-2023 data) where still within retention windows; align new filings with NDPC.",
+      "clauseRef": "NDPR 2019 \u00a72.1.7",
+      "sourceUrl": "https://nitda.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 3, "day": 15 },
+      "penaltyKobo": 100000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}

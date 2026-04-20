@@ -1,0 +1,119 @@
+{
+  "code": "NDPC",
+  "name": "Nigeria Data Protection Commission",
+  "statute": "Nigeria Data Protection Act 2023",
+  "sourceUrl": "https://ndpc.gov.ng/",
+  "appliesTo": ["fintech", "platform", "telco", "digital_service_provider", "vasp"],
+  "obligations": [
+    {
+      "code": "NDPC-REG-001",
+      "title": "Register as a Data Controller of Major Importance",
+      "description": "Organisations processing personal data of Nigerian residents at scale must register with NDPC as a Data Controller/Processor of Major Importance (DCMI/DPMI) and file a designation within 6 months of qualifying.",
+      "clauseRef": "NDPA 2023 s.44 & GAID 2025 Part V",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-DPO-002",
+      "title": "Appoint a Data Protection Officer",
+      "description": "Every Data Controller of Major Importance must designate a qualified Data Protection Officer and publish their contact details in the organisation's privacy notice.",
+      "clauseRef": "NDPA 2023 s.32",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-DPIA-003",
+      "title": "Conduct Data Protection Impact Assessments",
+      "description": "Before any high-risk processing (profiling, large-scale sensitive data, automated decision-making), perform a DPIA documenting risk and mitigation. Refresh at least annually.",
+      "clauseRef": "NDPA 2023 s.28",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-BREACH-004",
+      "title": "Notify personal-data breaches within 72 hours",
+      "description": "Report any breach likely to result in risk to data subjects to NDPC within 72 hours of becoming aware, and to affected individuals without undue delay where risk is high.",
+      "clauseRef": "NDPA 2023 s.40",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "within_days_of_event", "days": 3, "event": "Data breach discovery" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-AUDIT-005",
+      "title": "File annual compliance audit return",
+      "description": "Data Controllers of Major Importance must commission a Data Protection Compliance Audit by an NDPC-licensed DPCO and file the return annually.",
+      "clauseRef": "NDPA 2023 s.37",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-RIGHTS-006",
+      "title": "Respond to data subject rights requests within 30 days",
+      "description": "Respond to access, rectification, erasure, restriction, portability, and objection requests without undue delay and at most 30 days of receipt.",
+      "clauseRef": "NDPA 2023 ss.34-36",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "within_days_of_event", "days": 30, "event": "Rights request received" },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-XBORDER-007",
+      "title": "Establish cross-border transfer safeguards",
+      "description": "Transfers of personal data outside Nigeria require an adequacy decision, binding corporate rules, standard contractual clauses, or an explicit derogation. Maintain the transfer register.",
+      "clauseRef": "NDPA 2023 ss.41-43",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-NOTICE-008",
+      "title": "Publish and maintain a compliant privacy notice",
+      "description": "Publish a privacy notice in plain language covering purposes, lawful basis, retention, rights, and transfer safeguards; review annually.",
+      "clauseRef": "NDPA 2023 s.27",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 100000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-ROPA-009",
+      "title": "Maintain a Record of Processing Activities (RoPA)",
+      "description": "Keep an up-to-date RoPA covering controller/processor identity, purposes, categories of data subjects, recipients, transfers, retention periods, and security measures.",
+      "clauseRef": "NDPA 2023 s.29",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-CONSENT-010",
+      "title": "Operate a demonstrable consent management system",
+      "description": "Where processing relies on consent, record who consented, when, to what, and provide an equally easy mechanism to withdraw.",
+      "clauseRef": "NDPA 2023 s.26",
+      "sourceUrl": "https://ndpc.gov.ng/",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}

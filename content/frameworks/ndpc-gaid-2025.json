@@ -1,0 +1,141 @@
+{
+  "code": "NDPC-GAID",
+  "name": "NDPC General Application and Implementation Directive 2025",
+  "statute": "General Application and Implementation Directive 2025 (effective 19 September 2025)",
+  "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+  "appliesTo": ["fintech", "platform", "telco", "digital_service_provider", "vasp"],
+  "obligations": [
+    {
+      "code": "NDPC-GAID-REG-001",
+      "title": "File DCMI/DPMI designation via NDPC Compliance Portal",
+      "description": "Data Controllers and Processors of Major Importance must submit the GAID Form A registration via the NDPC Compliance Portal within six months of meeting the major-importance thresholds. Renew annually.",
+      "clauseRef": "GAID 2025 Part III, Art. 9",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-AUD-002",
+      "title": "Engage an NDPC-licensed DPCO for annual compliance audit",
+      "description": "DCMIs must appoint a Data Protection Compliance Organisation licensed by NDPC to conduct the annual compliance audit and prepare the Form C return.",
+      "clauseRef": "GAID 2025 Part IV, Art. 14",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 2, "day": 28 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-FILE-003",
+      "title": "File Annual Compliance Return (Form C) by 31 March",
+      "description": "Submit the DPCO-attested annual compliance return to NDPC using GAID Form C no later than 31 March each year, covering the preceding calendar year.",
+      "clauseRef": "GAID 2025 Part V, Art. 18",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-TRN-004",
+      "title": "Maintain cross-border transfer register citing GAID adequacy list",
+      "description": "Record every transfer of personal data outside Nigeria, cite the adequacy basis (GAID Schedule 3 whitelist, SCCs, BCRs, or explicit derogation), and update the register within 30 days of any new transfer.",
+      "clauseRef": "GAID 2025 Part VI, Art. 22",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-CHILD-005",
+      "title": "Implement parental consent verification for processing of children's data",
+      "description": "Where services are likely to be accessed by children under 18, operate a verifiable parental-consent mechanism and document the method of verification.",
+      "clauseRef": "GAID 2025 Part IX, Art. 34",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-ADM-006",
+      "title": "Disclose automated decision-making and provide human-review option",
+      "description": "Disclose in the privacy notice any solely-automated decision with legal or similarly significant effect, the logic involved, and the process for requesting human review.",
+      "clauseRef": "GAID 2025 Part X, Art. 38",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-BRCH-007",
+      "title": "Use GAID Schedule 2 template for breach notifications to NDPC",
+      "description": "Breach notifications to NDPC must use the Schedule 2 template (nature, categories and approximate number of data subjects, likely consequences, measures taken) and be filed within 72 hours.",
+      "clauseRef": "GAID 2025 Part VIII, Art. 29 & Schedule 2",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "within_days_of_event", "days": 3, "event": "Personal data breach becomes known" },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-DPA-008",
+      "title": "Execute GAID-aligned Data Processing Agreements with processors",
+      "description": "Every engagement of a third-party processor must be governed by a written DPA containing the mandatory clauses listed in GAID Part VII, including sub-processor authorisation, audit rights, and return-or-destroy at termination.",
+      "clauseRef": "GAID 2025 Part VII, Art. 26",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-RET-009",
+      "title": "Retain audit logs of personal-data processing for at least 7 years",
+      "description": "Access, modification, and deletion logs relating to personal data must be retained for a minimum of seven years and produced to NDPC on request.",
+      "clauseRef": "GAID 2025 Part V, Art. 20",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 12, "day": 31 },
+      "penaltyKobo": 150000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-TRAIN-010",
+      "title": "Deliver annual data-protection training to all staff handling personal data",
+      "description": "Conduct role-appropriate data-protection training at least annually; keep attendance records and training materials for NDPC inspection.",
+      "clauseRef": "GAID 2025 Part IX, Art. 32",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 11, "day": 30 },
+      "penaltyKobo": 100000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-DPO-011",
+      "title": "Appoint a DPO with NDPC-recognised certification",
+      "description": "The Data Protection Officer must hold a data-protection certification recognised by NDPC and the appointment must be notified via the Compliance Portal within 30 days of designation.",
+      "clauseRef": "GAID 2025 Part III, Art. 11",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 200000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "NDPC-GAID-FEE-012",
+      "title": "Pay annual DCMI/DPMI filing fee per GAID Schedule 1",
+      "description": "Pay the tiered annual filing fee scaled to the organisation's classification under GAID Schedule 1 at the time of Form C filing.",
+      "clauseRef": "GAID 2025 Schedule 1",
+      "sourceUrl": "https://ndpc.gov.ng/Files/General_Application_and_Implementation_Directive_2025.pdf",
+      "trigger": { "type": "if_processes_personal_data" },
+      "dueRule": { "type": "annual", "month": 3, "day": 31 },
+      "penaltyKobo": 100000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}
