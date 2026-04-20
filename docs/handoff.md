@@ -1,130 +1,130 @@
 # ComplyNG Web — Handoff
 
-## Last Updated: 2026-04-20 — Session: Clerk auth + Docker Postgres migration + docs refresh
+## Last Updated: 2026-04-20 — Session: GAID hero flow + OSCAL/Trust Center + landing rewrite
 
-This session finished the Clerk-authenticated onboarding flow, replaced the Neon-specific driver with a portable `postgres` (porsager) setup talking to a local Docker pgvector, and refreshed README.md + DEMO.md to match reality. Next session should ingest regulatory content into the new DB and do a full click-through of the end-to-end flow.
+This session shipped the four must-have hackathon features (policy upload → AI gap analysis → evidence ledger → OSCAL export → public Trust Center) and rewrote the landing page so it describes the app as actually built. Hero flow was verified end-to-end in a live browser against the dev server. All tests green, build clean, lint clean, typecheck clean.
 
 ## Completed Pages & Routes
 
 | Route | Status | Notes |
 | --- | --- | --- |
-| `/` | ✅ | Landing. `Navbar` is now async — shows "Open dashboard" when signed in (via `auth()`), "Log in" / "Get Started" otherwise. |
-| `/signup/[[...rest]]` | ✅ | Clerk `<SignUp />`, redirects to `/dashboard` on success. |
+| `/` | ✅ | Landing rewritten this session — hero, features, CTA, footer, navbar, social-proof, dashboard-preview all describe the real app. |
+| `/signup/[[...rest]]` | ✅ | Clerk `<SignUp />`. |
 | `/login/[[...rest]]` | ✅ | Clerk `<SignIn />`. |
-| `/onboarding` | ✅ | Router page — redirects to `nextIncompleteStep` or `/dashboard` if complete. |
-| `/onboarding/basics` | ✅ | Name, website, contact name. Zod-validated. |
-| `/onboarding/type` | ✅ | 5 entity-type radio cards. |
-| `/onboarding/scale` | ✅ | Nigerian users + 4 activity flags. |
-| `/onboarding/licenses` | ✅ | CBN / NCC / SEC / DPO — marks `completed_at`. |
-| `/dashboard` | ✅ | Clerk-gated. Reads profile from DB. |
-| `/dashboard/ask` | ✅ | RAG Q&A, Clerk-gated. |
-| `/dashboard/profile` | ✅ | Edit form now writes to DB via `saveFullProfile`. |
-| `/api/ask` | ✅ | RAG endpoint, Clerk-gated by `proxy.ts`. |
+| `/onboarding` + `/onboarding/{basics,type,scale,licenses}` | ✅ | 4-step wizard, DB-backed, resumable. |
+| `/dashboard` | ✅ | Obligations grouped by framework, score card, evidence drawers per row, "Export OSCAL" button. |
+| `/dashboard/ask` | ✅ | RAG Q&A, cited. |
+| `/dashboard/profile` | ✅ | Edit business profile, saves via `saveFullProfile`. |
+| `/dashboard/policies` | ✅ | Upload policy PDF/MD, list uploaded policies. |
+| `/dashboard/policies/[id]` | ✅ | Per-policy gap-analysis view with dual citations. |
+| `/dashboard/trust` | ✅ | Slug picker + Publish / Unpublish / Refresh. |
+| `/trust/[slug]` | ✅ | Public no-auth trust center, renders OSCAL content with compliance score, frameworks, evidence metadata, sha256 hash. Includes download link to `/trust/[slug]/attestation?download=1`. |
+| `/trust/[slug]/attestation` | ✅ | Serves the stored OSCAL JSON; hash byte-identical to what the public page displays. |
+| `/api/ask` | ✅ | RAG endpoint, Clerk-gated. |
 | `/api/obligations` | ✅ | Reads from DB via `getProfile()`. |
-| `/api/webhooks/clerk` | ✅ | Svix-verified `user.created` → `ensureProfileStub`. |
+| `/api/webhooks/clerk` | ✅ | Svix-verified `user.created`. |
+| `/api/export/oscal` | ✅ | GET returns OSCAL Assessment-Results JSON; `?download=1` → attachment disposition; Clerk-gated via proxy matcher `/api/export(.*)`. |
 
 ## Completed Components
 
-- `src/components/landing/*` — navbar (auth-aware), hero, features, frameworks (NITDA/NDPC/CBN/NCC/SEC), footer, dashboard-preview.
-- `src/components/onboarding/wizard-shell.tsx` — step indicator shared across all 4 onboarding pages.
-- `src/components/dashboard/dashboard-nav.tsx` — Clerk `<UserButton />` + `ThemeToggle` + 3-link nav (Obligations / Ask / Profile).
-- `src/components/dashboard/obligation-row.tsx`, `score-card.tsx`, `ask-panel.tsx` — unchanged from hackathon prototype.
+- `src/components/landing/*` — rewritten this session. Navbar (auth-aware), hero (GAID 2025 messaging), features (6 real features), frameworks (JSON-per-regulator story), CTA (Start free + View the source), footer (real links), social-proof (real stats), dashboard-preview (GAID obligations with clause refs + sha256/OSCAL/Trust strip).
+- `src/components/onboarding/wizard-shell.tsx` — step indicator.
+- `src/components/dashboard/dashboard-nav.tsx` — UserButton + ThemeToggle + nav (Obligations / Ask / Policies / Trust / Profile).
+- `src/components/dashboard/obligation-row.tsx`, `score-card.tsx`, `ask-panel.tsx`, `policy-upload.tsx`, `gap-list.tsx`, `evidence-drawer.tsx` (inline `<details>` drawer — no client JS needed).
+- `src/components/trust/trust-center.tsx` — shared Trust Center renderer.
 - `src/components/theme-provider.tsx`, `theme-toggle.tsx` — next-themes.
-- `src/components/ui/*` — shadcn (badge, button, card, input, navigation-menu, separator).
+- `src/components/ui/*` — shadcn primitives.
 
 ## API Integrations
 
-Frontend → internal backend only (no separate API server yet — Go `complyng-api` is a future thing).
-
 | Caller | Endpoint | Status |
 | --- | --- | --- |
-| `/dashboard/ask` form action | `/api/ask` (internal) | ✅ Working. Uses Anthropic Claude Sonnet + Gemini embeddings. |
-| `/dashboard` page | `getProfile()` → Postgres | ✅ DB-backed. |
+| `/dashboard/ask` form action | `/api/ask` | ✅ Anthropic Claude Sonnet + Gemini embeddings + pgvector retrieval. |
+| `/dashboard` page | `getProfile()` + rules engine | ✅ DB-backed. |
 | `/dashboard/profile` form | server action → `saveFullProfile()` | ✅ DB-backed. |
-| Clerk → `/api/webhooks/clerk` | `user.created` | ✅ Svix signature verification in place. |
-| `src/lib/llm/retriever.ts` | Gemini embedding API + Postgres pgvector | ✅ Tagged-template queries work against porsager driver. |
+| `/dashboard/policies` form | `uploadPolicy`, `runGapAnalysis` server actions | ✅ pdf-parse → chunker → embedder → persist; Claude Sonnet 4.5 with structured JSON for gap analysis. |
+| Evidence drawer form | `attachEvidence`, `removeEvidence` server actions | ✅ sha256-hashed, auto-flips obligation to `met`. |
+| `/dashboard/trust` form | `saveTrustCenterSlug`, `publishTrustCenter`, `unpublishTrustCenter`, `refreshTrustCenter` | ✅ Uses `snapshotAttestation` to build OSCAL against live obligations + evidence. |
+| `/api/export/oscal` | `buildOscalAttestation` | ✅ Deterministic UUIDs, content hash, optional HMAC (controlled by `ATTESTATION_HMAC_SECRET`). |
+| `/trust/[slug]/attestation` | `getTrustCenterBySlug` | ✅ Serves stored OSCAL; hash matches public page. |
+| Clerk → `/api/webhooks/clerk` | `user.created` | ✅ Svix signature verified. |
 
-External keys required: `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_WEBHOOK_SECRET` (optional), `DATABASE_URL`.
+External keys: `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, `CLERK_WEBHOOK_SECRET` (optional), `DATABASE_URL`, `ATTESTATION_HMAC_SECRET` (optional — when set, OSCAL output is HMAC-signed).
 
 ## Current Test Status
 
 ```
- Test Files  3 passed (3)
-      Tests  20 passed (20)
+ Test Files  4 passed (4)
+      Tests  27 passed (27)
 ```
 
-- `__tests__/rules.test.ts` — 7 tests, rules engine coverage (fintech / platform / telco / VASP / score / overdue ordering).
-- `__tests__/onboarding.test.ts` — 12 tests, pure-logic coverage of `nextIncompleteStep`, `isOnboardingComplete`, `rowToBusinessProfile` (including wizard resume + schema mapping).
-- `__tests__/hero.test.tsx` — 1 test, landing hero smoke test.
+- `__tests__/rules.test.ts` — rules engine.
+- `__tests__/onboarding.test.ts` — wizard step helpers, schema mapping.
+- `__tests__/hero.test.tsx` — landing hero smoke test (updated this session to match new headline "Turn GAID 2025 into…").
+- `__tests__/oscal.test.ts` — 7 new tests: deterministic content hash, hash changes on evidence add, finding/observation count, OSCAL state mapping, HMAC signing with/without secret, sha256 of canonical JSON, filename slugification.
 
 ## Current Build Status
 
-- **TypeCheck:** ✅ `npx tsc --noEmit` clean.
-- **Lint:** ✅ `bun run lint` clean (eslint).
-- **Build:** ✅ `bun run build` compiles all 15 routes + `ƒ Proxy (Middleware)`.
-- **Dev server:** ✅ Runs at http://localhost:3000 after `bun run db:up && bun run migrate`.
+- **TypeCheck:** ✅ `bunx tsc --noEmit` clean.
+- **Lint:** ✅ `bun run lint` clean.
+- **Build:** ✅ `bun run build` compiles every route including `/api/export/oscal`, `/dashboard/policies/[id]`, `/dashboard/trust`, `/trust/[slug]`, `/trust/[slug]/attestation`.
+- **Dev server:** ✅ Ran live during this session; hero flow verified in browser.
 
 ## Files Modified This Session
 
-**New**
-- `docker-compose.yml` — pgvector/pgvector:pg16 + named volume + healthcheck.
-- `docs/handoff.md` — this file.
+**Rewritten / updated (landing)**
+- `src/components/landing/hero.tsx` — GAID 2025 hero copy + CTA swap.
+- `src/components/landing/features.tsx` — 6 real features (Rules Engine, Policy Gap Analysis, Evidence Ledger, OSCAL, Trust Center, Cited AI Q&A).
+- `src/components/landing/cta.tsx` — removed WhatsApp; added GitHub "View the source" (icon is `Code2` — `Github` is no longer exported by lucide-react).
+- `src/components/landing/footer.tsx` — real product/framework/resource links.
+- `src/components/landing/navbar.tsx` — shortened nav; banner mentions GAID 2025 effective date.
+- `src/components/landing/social-proof.tsx` — real stats (6 frameworks, 34+ obligations, OSCAL, sha256).
+- `src/components/landing/dashboard-preview.tsx` — GAID obligations with clause refs + bottom strip calling out sha256/OSCAL/Trust.
+- `src/components/landing/frameworks.tsx` — subhead rewritten around JSON-per-regulator story.
 
-**Modified**
-- `src/lib/db/client.ts` — rewritten: `neon()` → `postgres()` (porsager).
-- `scripts/migrate.ts` — driver swap + `await db.end()`; `db.query()` → `db.unsafe()`.
-- `scripts/ingest.ts` — driver swap + `await db.end()`.
-- `src/components/landing/navbar.tsx` — async, uses `auth()` from `@clerk/nextjs/server`; conditional "Open dashboard" vs "Log in / Get Started".
-- `src/components/dashboard/dashboard-nav.tsx` — added `<UserButton />`.
-- `src/app/layout.tsx` — wrapped in `<ClerkProvider afterSignOutUrl="/">`.
-- `src/app/onboarding/layout.tsx` — `<UserButton />` without `afterSignOutUrl` prop (moved to provider).
-- `src/app/dashboard/profile/actions.ts` — cookie → `saveFullProfile(userId, parsed.data)`.
-- `package.json` — removed `@neondatabase/serverless`, added `postgres`. Added scripts: `db:up`, `db:down`, `db:reset`, `db:logs`, `db:psql`.
-- `.env.local.example` — local Docker URL as default; added Clerk keys.
-- `.env.local` — local Postgres URL added (was previously typo'd as `.evn`, renamed earlier in session).
-- `README.md` — full rewrite from Next boilerplate to project overview.
-- `DEMO.md` — removed Neon references, added Clerk/onboarding click-through, added `db:reset` panic button.
-- `vitest.config.mts` — added `server-only` alias stub so `src/lib/db/profile.ts` can be unit-tested.
-- `__tests__/stubs/server-only.ts` — new no-op stub.
-
-**Earlier in session (already committed-ready)**
-- `src/proxy.ts` (Next 16 renamed `middleware.ts`). Moved from project root to `src/` because Clerk's runtime check expects it there with `src/` layout.
-- `src/app/signup/[[...rest]]/page.tsx`, `src/app/login/[[...rest]]/page.tsx`.
-- `src/app/onboarding/{basics,type,scale,licenses}/{page.tsx,actions.ts}` — 4-step wizard.
-- `src/app/api/webhooks/clerk/route.ts` — Svix-verified webhook.
-- `src/lib/db/profile.ts` — 9 helpers covering the profile lifecycle.
-- `src/lib/profile.ts` — rewritten from cookie → `auth().userId` + DB lookup.
-- `__tests__/onboarding.test.ts` — 12 tests.
+**New (earlier this session, pre-compact)**
+- `src/lib/export/oscal.ts` — `buildOscalAttestation`, `stableStringify`, `deterministicUuid`, `findingState`, `attestationFilename`. Emits OSCAL Assessment-Results subset with findings (obligations) + observations (evidence records).
+- `src/lib/db/trust.ts` — trust_center CRUD.
+- `src/app/api/export/oscal/route.ts` — GET OSCAL.
+- `src/app/dashboard/trust/page.tsx` + `actions.ts` — admin UI.
+- `src/app/trust/[slug]/page.tsx` — public Trust Center.
+- `src/app/trust/[slug]/attestation/route.ts` — downloadable OSCAL matching the published hash.
+- `src/proxy.ts` — added `/api/export(.*)` matcher.
+- `src/components/dashboard/dashboard-nav.tsx` — Trust link.
+- `__tests__/oscal.test.ts` — 7 tests.
+- `__tests__/hero.test.tsx` — updated headline assertion.
+- `demo/acme-fintech-privacy-policy.md` — seed policy; also copied to `public/demo/`.
+- `DEMO.md` — added the 6-step hero-flow section.
 
 ## Open Decisions
 
-1. **Production Postgres host.** Plan explicitly made the app Neon-agnostic, but the deployment target is still unchosen (Fly / Railway / Supabase / self-hosted / Neon-as-Postgres). Pick before shipping.
-2. **`CLERK_WEBHOOK_SECRET` on prod.** Webhook currently works without it (lazy stub creation covers the race), but production should configure the Clerk webhook endpoint + secret properly. Needs a public URL first.
-3. **Source PDFs for RAG.** `content/docs/sources.json` expects 6 PDFs that aren't committed. Ingest falls back to the obligation JSON summaries, which works but is less rich. Decision: ship without PDFs for now, or track them down?
-4. **Error UX in onboarding.** Server actions throw on Zod failure — there's no user-visible error surface yet. Form works but a bad input just 500s.
-5. **Obligation completion toggle wiring.** `toggleObligationCompletion` exists in the repo layer and the plan mentions clicking to mark obligations met, but I didn't verify the UI button is wired to it. Check `src/components/dashboard/obligation-row.tsx`.
+1. **Commit hygiene.** ~37 files are still untracked/modified (see `git status`). Work landed across several concerns: hero-flow features, landing rewrite, OSCAL + Trust Center, docs. Break into logical commits before the demo checkpoint.
+2. **Production Postgres host.** Still unchosen (Fly / Railway / Supabase / Neon / self-hosted).
+3. **`ATTESTATION_HMAC_SECRET` management.** Optional today. If used on prod, needs a secret-rotation story.
+4. **Source PDFs.** `content/docs/` is expected to hold GAID 2025 / NDPA / etc. Ingest falls back to obligation-JSON synthetic chunks when PDFs are missing — works, but answers are less rich. Decide whether to ship without PDFs.
+5. **Error UX on server actions.** Wizard + policy upload server actions still throw on Zod failure; no user-facing error surface.
+6. **Trust Center editing audit trail.** Republishing changes the attestation hash but there's no audit table recording old hashes. Consider if regulators would want the history.
 
 ## Traps to Avoid
 
-- **Middleware/Proxy location.** Next 16 docs say proxy goes in project root, but Clerk 7 with a `src/` layout insists on `src/proxy.ts`. If you see `clerkMiddleware() was not run`, that's the cause.
-- **Clerk 7 export changes.** `SignedIn` / `SignedOut` are gone from `@clerk/nextjs`. Use server-side `auth()` check in a server component instead. `afterSignOutUrl` prop is gone from `<UserButton />` — set it once on `<ClerkProvider afterSignOutUrl="/">`.
-- **`.env` typos.** The env file was briefly named `.evn` and Next silently didn't load it (there's no warning). Double-check the filename if env-dependent code explodes with `ENV not set`.
-- **`server-only` in tests.** Any module imported by `src/lib/db/profile.ts` transitively imports `server-only`, which throws at import time in vitest's jsdom env. Worked around with a stub in `__tests__/stubs/server-only.ts` + vitest `alias`. Don't remove it.
-- **Script hangs.** porsager's Pool holds the Node event loop open; `scripts/migrate.ts` and `scripts/ingest.ts` both need `await db.end()` or they'll never exit. Wired up already — don't refactor it away.
-- **TEXT[] column binding.** The existing `steps as unknown as string[]` double-cast is harmless with porsager (which binds JS arrays natively to `text[]`), but don't "clean it up" — it compiles against both drivers.
-- **Destructive `db:reset`.** Wipes the Docker volume (`docker compose down -v`). Warn the user before running it in any shared env.
-- **Content re-ingest on demo day.** Plan deliberately chose no pre-baked SQL seed dump. First ingest takes ~1 min and needs `GOOGLE_API_KEY`. Run it once before demo, don't rely on "it'll be fast when I need it."
+- **Lucide `Github` icon gone.** Landing CTA originally imported `Github`; build fails with "Export Github doesn't exist". Use `Code2` or any other lucide export.
+- **Hero test drift.** `__tests__/hero.test.tsx` asserts on the headline text. If you change the headline again, update the regex.
+- **`src/proxy.ts` matcher.** Anything under `/api/export/*` must stay listed — otherwise the OSCAL download becomes a 404 behind the proxy.
+- **`postgres.JSONValue` type on insert.** When writing `attestation` JSONB via porsager, cast with `input.attestation as postgres.JSONValue` around `db.json(...)`. Raw `Record<string, unknown>` fails strict typing.
+- **Mutable fixtures in oscal tests.** Share arrays across tests only by copy: `sampleEvidence.map((e) => ({ ...e }))`. Otherwise the "hash changes when evidence is added" test mutates fixtures consumed by later tests.
+- **Test output vs `| tail -N` pipe.** `bun run test | tail -N` sometimes buffers and hides output. Use `> /tmp/test-out.log && cat /tmp/test-out.log` or filter with `grep -E "(PASS|FAIL|Tests|Test Files)"`.
+- **Browser tab freeze.** After publishing Trust Center, `javascript_tool` occasionally timed out with CDP "renderer frozen". Fall back to `curl` to verify `/trust/[slug]` content and hash.
+- **Clerk 7 export changes.** `SignedIn`/`SignedOut` don't exist. Use server-side `auth()`. `<ClerkProvider afterSignOutUrl="/">` is the only place to set that prop.
+- **Middleware → proxy.** Next 16 renamed `middleware.ts` → `proxy.ts` and with `src/` layout it must live at `src/proxy.ts` for Clerk.
+- **`server-only` in vitest.** Handled by alias stub `__tests__/stubs/server-only.ts`. Don't remove.
+- **Script hangs.** porsager holds the event loop open; every script needs `await db.end()`.
+- **`db:reset` is destructive.** Wipes the Docker volume. Warn before running in a shared env.
 
 ## Next Session Should
 
-1. **Confirm `.env.local` has all six keys** (`DATABASE_URL`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, optional `CLERK_WEBHOOK_SECRET`).
-2. **Run `bun run ingest`** against the local Docker Postgres to populate `regulatory_chunks` — the RAG `/dashboard/ask` path returns zero results otherwise.
-3. **Full end-to-end click-through:**
-   - Sign up at `/signup` with a throwaway email.
-   - Walk the wizard.
-   - Verify `/dashboard` renders obligations matching the entity type picked.
-   - Ask a question at `/dashboard/ask` — confirm cited answer.
-   - Check the `business_profile` row with `bun run db:psql` → `SELECT * FROM business_profile;`.
-4. **Verify obligation completion toggle** — click "mark complete" on an obligation and check the `obligation_completion` table gets a row. If the UI isn't wired, wire it (see Open Decision #5).
-5. **Commit the untracked work.** Most of this session is still in untracked files (see `git status`): `docker-compose.yml`, `__tests__/`, `src/app/api/`, `src/app/dashboard/`, `src/app/login/`, `src/app/onboarding/`, `src/app/signup/`, `src/components/dashboard/`, `src/components/onboarding/`, `src/lib/db/`, `src/lib/llm/`, `src/lib/rules/`, `src/proxy.ts`, `vitest.config.mts`, `content/`, `demo/`, `scripts/`, `DEMO.md`. Break into logical commits (auth + onboarding; db driver swap; docs).
-6. **Pick a production Postgres host** (Open Decision #1) if deployment is on the agenda.
+1. **Commit the pending work** in focused commits — this session's landing-page rewrite is already staged in working tree (modified files), and the OSCAL/Trust Center flow lives across `src/app/api/export/`, `src/app/dashboard/trust/`, `src/app/dashboard/policies/`, `src/app/trust/`, `src/lib/export/oscal.ts`, `src/lib/db/trust.ts`, `src/lib/policy/`, `__tests__/oscal.test.ts`. Break by concern before creating the PR.
+2. **Produce the demo GIF** — `demo/complyng-hero-flow.gif` already captured (3.8MB, 24 frames, 1050x1148). Double-check it still tells the full story; re-capture if any UI changed this session.
+3. **Set up the production Postgres host** (Open Decision #2). Until then `/trust/[slug]` only works locally.
+4. **Decide on PDFs.** Either commit `content/docs/gaid-2025.{pdf,md}` and rerun `bun run ingest`, or explicitly document the fallback in DEMO.md so judges know the answer quality ceiling.
+5. **Tighten server-action error UX** — at minimum render inline errors on `/onboarding/*` and `/dashboard/policies` instead of letting Zod throw.
+6. **Live-verify** the landing → signup → onboarding → policy upload → gap analysis → evidence → OSCAL → Trust Center flow one more time end-to-end, in a fresh browser, against a clean DB. `bun run db:reset && bun run ingest` before demo day.
