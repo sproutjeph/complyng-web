@@ -1,0 +1,64 @@
+{
+  "code": "CBN_AML",
+  "name": "CBN AML/CFT/CPF Regulations",
+  "statute": "CBN (Anti-Money Laundering, Combating the Financing of Terrorism and Countering Proliferation Financing of Weapons of Mass Destruction) Regulations 2022",
+  "sourceUrl": "https://www.cbn.gov.ng/",
+  "appliesTo": ["fintech", "vasp"],
+  "obligations": [
+    {
+      "code": "CBNAML-MLRO-001",
+      "title": "Designate a Money Laundering Reporting Officer (MLRO)",
+      "description": "Appoint an MLRO at management level, register the appointment with CBN, and provide the MLRO with authority and resources to discharge AML/CFT duties.",
+      "clauseRef": "AML/CFT/CPF Regs 2022 \u00a77",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "once" },
+      "penaltyKobo": 500000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBNAML-PROG-002",
+      "title": "Board-approved AML/CFT programme",
+      "description": "Maintain a written, board-approved AML/CFT programme proportionate to the institution's risk profile, reviewed at least annually.",
+      "clauseRef": "AML/CFT/CPF Regs 2022 \u00a75",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "annual", "month": 1, "day": 31 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBNAML-TRAIN-003",
+      "title": "Annual AML/CFT training for staff",
+      "description": "Train all staff on AML/CFT obligations, red flags, and reporting duties at least annually, with targeted refreshers for customer-facing staff.",
+      "clauseRef": "AML/CFT/CPF Regs 2022 \u00a79",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "annual", "month": 11, "day": 30 },
+      "penaltyKobo": 100000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBNAML-SANCT-004",
+      "title": "Screen customers and transactions against UN/NSCIA sanctions lists",
+      "description": "Screen all customers at onboarding and transactions in real time against United Nations Security Council and Nigerian Sanctions Committee lists; freeze without delay on a match.",
+      "clauseRef": "AML/CFT/CPF Regs 2022 \u00a718 & TP Act 2022",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "quarterly", "dayOfMonth": 15 },
+      "penaltyKobo": 1000000000,
+      "verifyStatus": "unverified"
+    },
+    {
+      "code": "CBNAML-REC-005",
+      "title": "Retain AML/CFT records for 5 years",
+      "description": "Retain customer due diligence records, transaction records, and internal SAR/STR investigation files for at least five years after the relationship ends.",
+      "clauseRef": "AML Act 2022 s.9 & CBN Regs \u00a712",
+      "sourceUrl": "https://www.cbn.gov.ng/",
+      "trigger": { "type": "if_handles_payments" },
+      "dueRule": { "type": "annual", "month": 6, "day": 30 },
+      "penaltyKobo": 300000000,
+      "verifyStatus": "unverified"
+    }
+  ]
+}
