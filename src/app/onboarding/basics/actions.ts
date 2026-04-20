@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { requireUserId } from "@/lib/profile";
 import { saveBasicsStep } from "@/lib/db/profile";
 
+export type BasicsState = { error: string | null };
+
 const BasicsSchema = z.object({
   name: z.string().min(1, "Business name is required").max(200),
   website: z
@@ -19,7 +21,10 @@ const BasicsSchema = z.object({
     .transform((v) => (v && v.length > 0 ? v : null)),
 });
 
-export async function submitBasics(formData: FormData) {
+export async function submitBasics(
+  _prev: BasicsState,
+  formData: FormData,
+): Promise<BasicsState> {
   const userId = await requireUserId();
   const parsed = BasicsSchema.safeParse({
     name: String(formData.get("name") ?? "").trim(),
@@ -27,8 +32,12 @@ export async function submitBasics(formData: FormData) {
     contactName: String(formData.get("contactName") ?? ""),
   });
   if (!parsed.success) {
-    throw new Error(parsed.error.issues.map((i) => i.message).join(", "));
+    return { error: parsed.error.issues.map((i) => i.message).join(", ") };
   }
-  await saveBasicsStep(userId, parsed.data);
+  try {
+    await saveBasicsStep(userId, parsed.data);
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Couldn't save. Try again." };
+  }
   redirect("/onboarding/type");
 }

@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { requireUserId } from "@/lib/profile";
 import { saveScaleStep } from "@/lib/db/profile";
 
+export type ScaleState = { error: string | null };
+
 const ScaleSchema = z.object({
   nigerianUsers: z.coerce.number().int().nonnegative().default(0),
   processesPersonalData: z.boolean(),
@@ -13,7 +15,10 @@ const ScaleSchema = z.object({
   sendsTelcoTraffic: z.boolean(),
 });
 
-export async function submitScale(formData: FormData) {
+export async function submitScale(
+  _prev: ScaleState,
+  formData: FormData,
+): Promise<ScaleState> {
   const userId = await requireUserId();
   const parsed = ScaleSchema.safeParse({
     nigerianUsers: formData.get("nigerianUsers") ?? 0,
@@ -23,8 +28,12 @@ export async function submitScale(formData: FormData) {
     sendsTelcoTraffic: formData.get("sendsTelcoTraffic") === "on",
   });
   if (!parsed.success) {
-    throw new Error(parsed.error.issues.map((i) => i.message).join(", "));
+    return { error: parsed.error.issues.map((i) => i.message).join(", ") };
   }
-  await saveScaleStep(userId, parsed.data);
+  try {
+    await saveScaleStep(userId, parsed.data);
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Couldn't save. Try again." };
+  }
   redirect("/onboarding/licenses");
 }

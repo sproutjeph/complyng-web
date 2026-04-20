@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { requireUserId } from "@/lib/profile";
 import { saveLicensesStep } from "@/lib/db/profile";
 
+export type LicensesState = { error: string | null };
+
 const LicensesSchema = z.object({
   licensedByCbn: z.boolean(),
   licensedByNcc: z.boolean(),
@@ -12,7 +14,10 @@ const LicensesSchema = z.object({
   hasDpo: z.boolean(),
 });
 
-export async function submitLicenses(formData: FormData) {
+export async function submitLicenses(
+  _prev: LicensesState,
+  formData: FormData,
+): Promise<LicensesState> {
   const userId = await requireUserId();
   const parsed = LicensesSchema.safeParse({
     licensedByCbn: formData.get("licensedByCbn") === "on",
@@ -21,8 +26,12 @@ export async function submitLicenses(formData: FormData) {
     hasDpo: formData.get("hasDpo") === "on",
   });
   if (!parsed.success) {
-    throw new Error(parsed.error.issues.map((i) => i.message).join(", "));
+    return { error: parsed.error.issues.map((i) => i.message).join(", ") };
   }
-  await saveLicensesStep(userId, parsed.data);
+  try {
+    await saveLicensesStep(userId, parsed.data);
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Couldn't save. Try again." };
+  }
   redirect("/dashboard");
 }

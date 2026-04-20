@@ -15,11 +15,10 @@ export function PolicyUpload() {
     const fd = new FormData();
     fd.set("file", file);
     startTransition(async () => {
-      try {
-        await uploadPolicy(fd);
-      } catch (e) {
-        if (e instanceof Error && e.message.includes("NEXT_REDIRECT")) return;
-        setError(e instanceof Error ? e.message : "Upload failed");
+      const result = await uploadPolicy(fd);
+      if (result && "error" in result) {
+        setError(result.error);
+        if (inputRef.current) inputRef.current.value = "";
       }
     });
   }
@@ -63,7 +62,9 @@ export function PolicyUpload() {
         </Button>
       </div>
       {error && (
-        <p className="mt-3 text-sm text-destructive">{error}</p>
+        <p role="alert" aria-live="polite" className="mt-3 text-sm text-destructive">
+          {error}
+        </p>
       )}
     </div>
   );
