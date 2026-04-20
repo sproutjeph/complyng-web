@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { DashboardPreview } from "./dashboard-preview";
 
 export function Hero() {
@@ -10,37 +10,56 @@ export function Hero() {
 
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-32">
         <div className="flex flex-col gap-8">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+            <ShieldCheck className="size-3.5 text-primary" />
+            GAID 2025 · NDPR · NITDA · CBN · NCC · SEC
+          </span>
+
           <h1 className="font-heading text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
-            Automate compliance, manage risk, and build trust
-            <span className="text-muted-foreground"> with AI</span>
+            Turn GAID 2025 into
+            <span className="text-muted-foreground"> operational compliance.</span>
           </h1>
 
           <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
-            Every Nigerian business answers to 6+ regulators — and none of them
-            talk to each other. ComplyNG is the AI layer that does. From CAC to
-            FIRS, PENCOM to NAFDAC, one platform handles it all.
+            Upload your privacy policy. ComplyNG maps it against NDPC GAID
+            2025, flags gaps with dual citations, hashes your evidence, and
+            publishes a regulator-verifiable Trust Center backed by a NIST
+            OSCAL attestation.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Input
-              type="email"
-              placeholder="Enter your work email"
-              className="h-10 sm:w-72"
-            />
-            <Button size="lg" className="h-10">
-              Get Started
+            <Button
+              size="lg"
+              className="h-10"
+              nativeButton={false}
+              render={<Link href="/signup" />}
+            >
+              Start free
               <ArrowRight data-icon="inline-end" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="h-10"
+              nativeButton={false}
+              render={<Link href="/dashboard" />}
+            >
+              Open the demo
             </Button>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <span className="size-1.5 rounded-full bg-chart-1" />
-              Free for 1 business
+              Rules engine + cited AI
             </span>
             <span className="flex items-center gap-1.5">
               <span className="size-1.5 rounded-full bg-chart-1" />
-              No credit card required
+              Hash-anchored evidence
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-chart-1" />
+              Public Trust Center
             </span>
           </div>
         </div>

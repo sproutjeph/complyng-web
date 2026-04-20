@@ -1,11 +1,37 @@
 import { Badge } from "@/components/ui/badge";
+import { FileCheck2, FileJson, Globe2 } from "lucide-react";
 
 const obligations = [
-  { name: "CAC Annual Return", status: "met" as const, due: "Filed" },
-  { name: "FIRS VAT Return", status: "upcoming" as const, due: "Apr 21" },
-  { name: "PENCOM Remittance", status: "upcoming" as const, due: "Apr 30" },
-  { name: "NSITF Contribution", status: "overdue" as const, due: "Overdue" },
-  { name: "ITF 1% Levy", status: "met" as const, due: "Filed" },
+  {
+    name: "Register with NDPC (GAID 2025)",
+    clause: "GAID Part II s.4",
+    status: "met" as const,
+    evidence: "2 records",
+  },
+  {
+    name: "Designate a Data Protection Officer",
+    clause: "GAID Part III s.12",
+    status: "met" as const,
+    evidence: "1 record",
+  },
+  {
+    name: "72-hour breach notification",
+    clause: "NDPA s.40",
+    status: "upcoming" as const,
+    evidence: "0 records",
+  },
+  {
+    name: "CBN RBCF cyber incident report",
+    clause: "CBN RBCF Part IV",
+    status: "upcoming" as const,
+    evidence: "0 records",
+  },
+  {
+    name: "GAID Art. 23 — cross-border safeguards",
+    clause: "GAID Part IV s.23",
+    status: "overdue" as const,
+    evidence: "gap found",
+  },
 ] as const;
 
 const statusVariant = {
@@ -17,15 +43,15 @@ const statusVariant = {
 const statusLabel = {
   met: "Compliant",
   upcoming: "Upcoming",
-  overdue: "Overdue",
+  overdue: "Gap",
 } as const;
 
 const scoreSegments = [
-  { label: "CAC", value: 100 },
-  { label: "FIRS", value: 85 },
-  { label: "PENCOM", value: 70 },
-  { label: "NSITF", value: 40 },
-  { label: "ITF", value: 100 },
+  { label: "GAID", value: 78 },
+  { label: "NDPR", value: 85 },
+  { label: "CBN", value: 72 },
+  { label: "NCC", value: 60 },
+  { label: "SEC", value: 90 },
 ] as const;
 
 export function DashboardPreview() {
@@ -41,25 +67,26 @@ export function DashboardPreview() {
             <span className="size-2.5 rounded-full bg-muted-foreground/20" />
           </div>
           <span className="text-xs text-muted-foreground">
-            app.complyng.com/dashboard
+            app.complyng.ng/dashboard
           </span>
         </div>
 
         <div className="flex flex-col gap-4 p-4">
-          {/* Score header */}
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-muted-foreground">
                 Compliance Score
               </p>
-              <p className="font-heading text-3xl font-bold">75</p>
+              <p className="font-heading text-3xl font-bold">77</p>
+              <p className="text-[0.7rem] text-muted-foreground">
+                12 met · 3 upcoming · 1 gap
+              </p>
             </div>
             <div className="flex size-16 items-center justify-center rounded-full border-4 border-primary bg-background">
-              <span className="font-heading text-lg font-bold">75%</span>
+              <span className="font-heading text-lg font-bold">77%</span>
             </div>
           </div>
 
-          {/* Framework bars */}
           <div className="flex flex-col gap-2">
             {scoreSegments.map((seg) => (
               <div key={seg.label} className="flex items-center gap-3">
@@ -79,27 +106,41 @@ export function DashboardPreview() {
             ))}
           </div>
 
-          {/* Obligation list */}
           <div className="flex flex-col gap-1">
             <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Upcoming Obligations
+              Obligations
             </p>
             {obligations.map((item) => (
               <div
                 key={item.name}
                 className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/50"
               >
-                <span className="text-sm">{item.name}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground">
-                    {item.due}
-                  </span>
-                  <Badge variant={statusVariant[item.status]}>
-                    {statusLabel[item.status]}
-                  </Badge>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm">{item.name}</p>
+                  <p className="truncate font-mono text-[0.65rem] text-muted-foreground">
+                    {item.clause} · {item.evidence}
+                  </p>
                 </div>
+                <Badge variant={statusVariant[item.status]}>
+                  {statusLabel[item.status]}
+                </Badge>
               </div>
             ))}
+          </div>
+
+          <div className="flex items-center justify-between gap-2 rounded-lg border border-dashed border-border bg-muted/30 px-3 py-2 text-[0.7rem] text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <FileCheck2 className="size-3.5 text-primary" />
+              sha256 evidence
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <FileJson className="size-3.5 text-primary" />
+              OSCAL export
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Globe2 className="size-3.5 text-primary" />
+              Trust Center
+            </span>
           </div>
         </div>
       </div>

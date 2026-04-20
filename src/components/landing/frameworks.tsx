@@ -8,38 +8,38 @@ interface Framework {
 
 const phase1Frameworks: Framework[] = [
   {
-    code: "CAC",
-    agency: "Corporate Affairs Commission",
-    obligations: "Annual returns, status filings, change notifications",
+    code: "NITDA",
+    agency: "National Information Technology Development Agency",
+    obligations: "Code of Practice, platform liaison, takedowns, annual reports",
   },
   {
-    code: "FIRS",
-    agency: "Federal Inland Revenue Service",
-    obligations: "CIT, VAT, WHT, PAYE, TCC renewal",
+    code: "NDPC",
+    agency: "Nigeria Data Protection Commission",
+    obligations: "NDPA 2023 & GAID 2025 — DPO, DPIA, 72h breach, rights",
   },
   {
-    code: "PENCOM",
-    agency: "National Pension Commission",
-    obligations: "Registration, monthly remittance, compliance cert",
+    code: "CBN",
+    agency: "Central Bank of Nigeria",
+    obligations: "Risk-Based Cybersecurity Framework, AML/CFT, KYC, STRs",
   },
   {
-    code: "NSITF",
-    agency: "Nigeria Social Insurance Trust Fund",
-    obligations: "ECS registration, monthly contributions",
+    code: "NCC",
+    agency: "Nigerian Communications Commission",
+    obligations: "Consumer Code, QoS reporting, SIM/NIN, outage reports",
   },
   {
-    code: "ITF",
-    agency: "Industrial Training Fund",
-    obligations: "1% payroll levy, training returns",
+    code: "SEC",
+    agency: "Securities and Exchange Commission",
+    obligations: "Digital Assets Rules 2022 — VASP, custody, disclosure",
   },
   {
-    code: "SRS",
-    agency: "State Revenue Services",
-    obligations: "State taxes, levies, business premises permits",
+    code: "CBN AML",
+    agency: "CBN AML/CFT/CPF Regulations",
+    obligations: "MLRO, sanctions screening, 5-yr retention, annual training",
   },
 ];
 
-const phase2Codes = ["NAFDAC", "SON", "CBN", "NITDA", "SEC", "NCC"];
+const phase2Codes = ["CAC", "FIRS", "PENCOM", "NSITF", "ITF", "NAFDAC", "SON"];
 
 function FrameworkRow({ code, agency, obligations }: Framework) {
   return (
@@ -61,12 +61,14 @@ export function Frameworks() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
           <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            Every Nigerian Framework, One Platform
+            Every Nigerian framework, one schema
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            ComplyNG supports Nigerian regulatory frameworks the way Vanta
-            supports SOC 2 and ISO 27001 — structured, automated, and
-            continuously monitored.
+            Each regulator is a JSON file conforming to the same Zod schema.
+            The rules engine applies the same <span className="font-mono">trigger</span> and
+            {" "}
+            <span className="font-mono">dueRule</span> predicates uniformly —
+            adding a new framework is a data task, not an engineering task.
           </p>
         </div>
 

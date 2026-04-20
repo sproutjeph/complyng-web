@@ -6,40 +6,39 @@ const footerSections = [
   {
     title: "Product",
     links: [
-      { label: "Compliance Engine", href: "#" },
-      { label: "Regulatory Monitoring", href: "#" },
-      { label: "Trust Centre", href: "#" },
-      { label: "Audit Readiness", href: "#" },
-      { label: "WhatsApp Bot", href: "#" },
-      { label: "API", href: "#" },
+      { label: "Rules Engine", href: "#platform" },
+      { label: "Policy Gap Analysis", href: "#platform" },
+      { label: "Evidence Ledger", href: "#platform" },
+      { label: "OSCAL Export", href: "#platform" },
+      { label: "Trust Center", href: "#platform" },
+      { label: "Cited AI Q&A", href: "#platform" },
     ],
   },
   {
     title: "Frameworks",
     links: [
-      { label: "CAC", href: "#" },
-      { label: "FIRS", href: "#" },
-      { label: "PENCOM", href: "#" },
-      { label: "NSITF", href: "#" },
-      { label: "ITF", href: "#" },
-      { label: "View All", href: "#" },
+      { label: "NDPC GAID 2025", href: "#solutions" },
+      { label: "NDPA 2023 / NDPR", href: "#solutions" },
+      { label: "NITDA Code 2022", href: "#solutions" },
+      { label: "CBN RBCF", href: "#solutions" },
+      { label: "NCC Consumer Code", href: "#solutions" },
+      { label: "SEC Digital Assets", href: "#solutions" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Documentation", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Compliance Guides", href: "#" },
-      { label: "API Reference", href: "#" },
+      { label: "Demo guide", href: "/DEMO.md" },
+      { label: "OSCAL spec (NIST)", href: "https://pages.nist.gov/OSCAL/" },
+      { label: "NDPC GAID 2025", href: "https://ndpc.gov.ng/" },
+      { label: "GitHub", href: "https://github.com/sproutjeph/complyng-web" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "Contact", href: "mailto:team@complyng.ng" },
       { label: "Privacy Policy", href: "#" },
       { label: "Terms of Service", href: "#" },
     ],
@@ -59,7 +58,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              AI-powered regulatory compliance for every Nigerian business.
+              Policy-as-code compliance for Nigerian regulators. OSCAL-native.
             </p>
           </div>
 
@@ -89,7 +88,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} ComplyNG. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            Made in Nigeria for Nigerian businesses.
+            Built in Nigeria. OSCAL-native. Hackathon prototype — not legal advice.
           </p>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import {
   ShieldCheck,
-  Radar,
-  Award,
   FileSearch,
-  ShieldAlert,
-  MessageCircle,
+  FileCheck2,
+  FileJson,
+  Globe2,
+  Sparkles,
 } from "lucide-react";
 import {
   Card,
@@ -24,39 +24,39 @@ interface Feature {
 const features: Feature[] = [
   {
     icon: ShieldCheck,
-    title: "Automated Compliance",
+    title: "Rules Engine",
     description:
-      "Maps your business profile to obligations across CAC, FIRS, PENCOM, NSITF, ITF, and more — no spreadsheets required.",
-  },
-  {
-    icon: ShieldAlert,
-    title: "Risk Management",
-    description:
-      "Proactive risk scoring based on penalty severity, enforcement trends, and approaching deadlines across all agencies.",
-  },
-  {
-    icon: Award,
-    title: "Trust Centre & Badge",
-    description:
-      "Earn a verifiable ComplyNG Trust Badge proving your regulatory standing to customers, partners, and banks.",
+      "Deterministic TypeScript engine maps your business profile to obligations across NITDA, NDPC, CBN, NCC, SEC, and CBN AML. Adding a framework is adding a JSON file.",
   },
   {
     icon: FileSearch,
-    title: "Audit Readiness",
+    title: "AI Policy Gap Analysis",
     description:
-      "Secure document vault with one-click report generation. Always ready for regulatory inspections.",
+      "Upload your privacy policy. Claude Sonnet 4.5 compares it clause-by-clause against GAID 2025 and returns structured findings with quotes from your policy and the regulation.",
   },
   {
-    icon: Radar,
-    title: "Regulatory Monitoring",
+    icon: FileCheck2,
+    title: "Evidence Ledger",
     description:
-      "AI scrapers monitor agency websites and gazettes daily. Get plain-language alerts when changes affect you.",
+      "Attach PDFs or verification URLs to any obligation. Every file is sha256-hashed, audit-stamped, and auto-flips the obligation to Compliant — no manual checklists.",
   },
   {
-    icon: MessageCircle,
-    title: "WhatsApp Co-pilot",
+    icon: FileJson,
+    title: "OSCAL Attestation Export",
     description:
-      "Full compliance experience on WhatsApp — onboard, check deadlines, get alerts. No app download needed.",
+      "One click produces a NIST OSCAL Assessment-Results JSON with deterministic UUIDs, content hash, and optional HMAC signature. Regulators can ingest it via API.",
+  },
+  {
+    icon: Globe2,
+    title: "Public Trust Center",
+    description:
+      "Publish a hash-anchored page at a public slug. Customers and regulators see posture, evidence metadata, and can download the exact OSCAL the hash was computed from.",
+  },
+  {
+    icon: Sparkles,
+    title: "Cited AI Q&A",
+    description:
+      "Ask a regulatory question and get an answer grounded only in ingested source texts (NDPA, GAID, CBN RBCF, NCC CCP, SEC Digital Assets) with inline clause citations.",
   },
 ];
 
@@ -83,11 +83,12 @@ export function Features() {
     <section id="platform" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="mx-auto mb-12 max-w-2xl text-center sm:mb-16">
         <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-          The AI Regulatory Compliance Platform
+          AI explains. The rules engine decides.
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          No matter your size, ComplyNG helps you automate compliance, manage
-          risk, and prove trust continuously — all from a single platform.
+          A defensible split: the deterministic engine decides what applies
+          and when it is due. The LLM only explains, cites, and surfaces
+          gaps — never makes the compliance call itself.
         </p>
       </div>
 

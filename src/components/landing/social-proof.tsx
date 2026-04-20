@@ -1,8 +1,8 @@
 const stats = [
-  { value: "40M+", label: "MSMEs in Nigeria" },
-  { value: "6–12", label: "Regulators per Business" },
-  { value: "90M+", label: "WhatsApp Users (NG)" },
-  { value: "₦0", label: "To Get Started" },
+  { value: "6", label: "Frameworks Loaded" },
+  { value: "34+", label: "Obligations Mapped" },
+  { value: "OSCAL", label: "Regulator-Verifiable" },
+  { value: "sha256", label: "Hashed Evidence" },
 ] as const;
 
 export function SocialProof() {
@@ -10,7 +10,7 @@ export function SocialProof() {
     <section className="border-y border-border bg-muted/30">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <p className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-          Built for Nigerian businesses across every sector
+          One interface across NITDA, NDPC, CBN, NCC, SEC
         </p>
 
         <div className="mt-10 grid grid-cols-2 gap-8 lg:grid-cols-4">

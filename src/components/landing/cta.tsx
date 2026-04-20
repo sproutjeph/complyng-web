@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, Code2 } from "lucide-react";
 
 export function CTA() {
   return (
@@ -9,11 +9,12 @@ export function CTA() {
         <div className="relative overflow-hidden rounded-2xl bg-primary px-6 py-12 text-center text-primary-foreground sm:px-12 sm:py-16">
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-6">
             <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-              Stop guessing. Start complying.
+              Stop writing spreadsheets. Start shipping attestations.
             </h2>
             <p className="text-lg opacity-90">
-              Join thousands of Nigerian businesses automating their regulatory
-              compliance. Get started for free — or say &quot;Hi&quot; on WhatsApp.
+              Sign up, run gap analysis on your policy, attach evidence, and
+              publish a hash-anchored Trust Center your regulator can verify.
+              Free for the hackathon demo.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
@@ -23,7 +24,7 @@ export function CTA() {
                 nativeButton={false}
                 render={<Link href="/signup" />}
               >
-                Get Started Free
+                Start free
                 <ArrowRight data-icon="inline-end" />
               </Button>
               <Button
@@ -31,10 +32,16 @@ export function CTA() {
                 variant="outline"
                 className="h-10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 nativeButton={false}
-                render={<Link href="#whatsapp" />}
+                render={
+                  <Link
+                    href="https://github.com/sproutjeph/complyng-web"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  />
+                }
               >
-                <MessageCircle data-icon="inline-start" />
-                Chat on WhatsApp
+                <Code2 data-icon="inline-start" />
+                View the source
               </Button>
             </div>
           </div>
