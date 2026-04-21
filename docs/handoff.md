@@ -93,7 +93,7 @@ External keys: `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `NEXT_PUBLIC_CLERK_PUBLISH
 - `src/components/dashboard/dashboard-nav.tsx` — Trust link.
 - `__tests__/oscal.test.ts` — 7 tests.
 - `__tests__/hero.test.tsx` — updated headline assertion.
-- `demo/acme-fintech-privacy-policy.md` — seed policy; also copied to `public/demo/`.
+- `demo/deeppay-fintech-privacy-policy.md` — seed policy; also copied to `public/demo/`.
 - `DEMO.md` — added the 6-step hero-flow section.
 
 ## Open Decisions

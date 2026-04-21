@@ -1,16 +1,16 @@
-# AcmeFintech Privacy Policy
+# DeepPay Privacy Policy
 
 **Effective Date:** 1 January 2026
-**Entity:** AcmeFintech Limited, Lagos, Nigeria
+**Entity:** DeepPay Limited, Lagos, Nigeria
 
-AcmeFintech Limited ("AcmeFintech", "we", "us") provides payment and lending
+DeepPay Limited ("DeepPay", "we", "us") provides payment and lending
 services to Nigerian consumers and businesses. This Privacy Policy explains
 how we collect, use, disclose, and safeguard personal information.
 
 ## 1. Scope
 
 This policy covers personal information processed via our mobile app, website,
-and customer support channels. It applies to all AcmeFintech customers and
+and customer support channels. It applies to all DeepPay customers and
 visitors to our services.
 
 ## 2. Information We Collect
@@ -31,7 +31,7 @@ We collect the following categories of personal information:
 
 We use personal information to:
 
-- Create and administer your AcmeFintech account
+- Create and administer your DeepPay account
 - Verify your identity under Nigeria's KYC rules
 - Process payments and disburse loans
 - Detect and prevent fraud and money-laundering activity
@@ -63,7 +63,7 @@ We do not sell personal information to third parties.
 
 ## 6. Cross-Border Data Transfers
 
-AcmeFintech uses cloud infrastructure operated by providers based in the
+DeepPay uses cloud infrastructure operated by providers based in the
 United States and the European Union. Where we transfer personal data outside
 Nigeria, we rely on contractual safeguards with those providers.
 
@@ -84,7 +84,7 @@ You have the right to:
 - Request deletion in certain circumstances
 - Lodge a complaint with the Nigeria Data Protection Commission
 
-To exercise these rights, email privacy@acmefintech.ng.
+To exercise these rights, email privacy@deeppay.ng.
 
 ## 9. Security
 
@@ -106,8 +106,8 @@ communicated via in-app notifications or email.
 
 For privacy questions, contact:
 
-AcmeFintech Limited
-privacy@acmefintech.ng
+DeepPay Limited
+privacy@deeppay.ng
 Plot 2, Admiralty Way, Lekki Phase 1, Lagos
 
 ---

@@ -182,7 +182,7 @@ Think of it as trust.google.com, but the page is cryptographically verifiable ag
 
 ### Slug
 
-The URL-safe identifier in the Trust Center path — e.g. "acme" in `/trust/acme`. Chosen at publish time.
+The URL-safe identifier in the Trust Center path — e.g. "deeppay" in `/trust/deeppay`. Chosen at publish time.
 
 ### Hash chain of custody (the demo punchline)
 

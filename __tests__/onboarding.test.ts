@@ -10,7 +10,7 @@ import {
 function makeRow(patch: Partial<ProfileRow> = {}): ProfileRow {
   return {
     userId: "user_test",
-    name: "Acme",
+    name: "DeepPay",
     website: null,
     contactName: null,
     entityType: null,

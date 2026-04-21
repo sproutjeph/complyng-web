@@ -24,7 +24,7 @@ function slugifyFallback(name: string, userId: string): string {
     .slice(0, 32);
   if (base.length >= 3) return base;
   const tail = userId.replace(/[^a-z0-9]/gi, "").slice(-8).toLowerCase();
-  return `acme-${tail || "entity"}`;
+  return `deeppay-${tail || "entity"}`;
 }
 
 async function snapshotAttestation(userId: string) {

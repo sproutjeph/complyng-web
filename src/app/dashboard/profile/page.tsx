@@ -42,7 +42,7 @@ export default async function ProfilePage() {
                   name="name"
                   defaultValue={profile.name}
                   required
-                  placeholder="Acme Pay Ltd"
+                  placeholder="DeepPay Ltd"
                 />
               </Field>
 

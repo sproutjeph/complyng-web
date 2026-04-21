@@ -65,7 +65,7 @@ function makeInput() {
   evidenceByCode.set("NDPC-GAID-REG-001", sampleEvidence.map((e) => ({ ...e })));
   return {
     userId: "user_ABC",
-    entityName: "Acme Pay",
+    entityName: "DeepPay",
     entityType: "fintech",
     obligations: sampleObligations,
     evidenceByCode,
@@ -144,7 +144,7 @@ describe("oscal attestation", () => {
   });
 
   test("attestationFilename slugifies entity name", () => {
-    const name = attestationFilename("Acme Pay Ltd.", fixedNow);
-    expect(name).toBe("complyng-attestation-acme-pay-ltd-2026-05-01.json");
+    const name = attestationFilename("DeepPay Ltd.", fixedNow);
+    expect(name).toBe("complyng-attestation-deeppay-ltd-2026-05-01.json");
   });
 });

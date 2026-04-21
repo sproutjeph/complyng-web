@@ -92,7 +92,7 @@ Judges reward end-to-end: a compliance lead lands, gets value, regulator-facing
 artifact goes out. The killer flow is:
 
 1. **`/dashboard/policies` — Upload the fintech privacy policy.** Drop in
-   `demo/acme-fintech-privacy-policy.md`. The parser chunks + embeds it (~6s),
+   `demo/deeppay-fintech-privacy-policy.md`. The parser chunks + embeds it (~6s),
    and the policy lands in `policy_document` / `policy_chunk` (pgvector).
 2. **Run AI gap analysis.** Click **Analyse gaps**. The orchestrator
    (`src/lib/policy/gap-analysis.ts`) iterates every GAID 2025 obligation,

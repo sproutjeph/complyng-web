@@ -21,7 +21,7 @@ function suggestSlug(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 32);
-  return s.length >= 3 ? s : "acme";
+  return s.length >= 3 ? s : "deeppay";
 }
 
 export default async function TrustCenterAdminPage() {

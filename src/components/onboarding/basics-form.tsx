@@ -23,7 +23,7 @@ export function BasicsForm({ defaultValues }: Props) {
         <Input
           name="name"
           defaultValue={defaultValues.name}
-          placeholder="Acme Pay Ltd"
+          placeholder="DeepPay Ltd"
           required
           maxLength={200}
         />
@@ -33,7 +33,7 @@ export function BasicsForm({ defaultValues }: Props) {
         <Input
           name="website"
           defaultValue={defaultValues.website}
-          placeholder="https://acme.ng"
+          placeholder="https://deeppay.ng"
           type="url"
         />
       </Field>

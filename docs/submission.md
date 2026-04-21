@@ -147,18 +147,18 @@ Five sample mappings pulled directly from `content/frameworks/*.json` and the en
 
 ## Demo Walkthrough
 
-- **Input:** A realistic draft privacy policy (`demo/acme-fintech-privacy-policy.md`) and onboarding answers describing a Nigerian fintech with 100k users, CBN licensing, and a DPO.
+- **Input:** A realistic draft privacy policy (`demo/deeppay-fintech-privacy-policy.md`) and onboarding answers describing a Nigerian fintech with 100k users, CBN licensing, and a DPO.
 - **Processing (visible steps):**
   1. Onboarding wizard saves profile; `/dashboard` renders 30+ applicable obligations across CBN + NDPC + GAID 2025.
   2. Policy upload parses, chunks, and embeds the document (~6 seconds).
   3. "Analyse gaps" iterates every GAID 2025 obligation; findings render with dual citations and severity.
   4. Evidence drawer: attach a sample DPIA PDF → obligation flips `met` → compliance score ticks up.
   5. Export OSCAL: file downloads with `complyng-attestation` wrapper, content hash visible.
-  6. Publish Trust Center under slug "acme" → `/trust/acme` is public, no auth required.
+  6. Publish Trust Center under slug "deeppay" → `/trust/deeppay` is public, no auth required.
 - **Output:**
   - A machine-verifiable OSCAL Assessment-Results JSON document.
   - A public Trust Center page showing compliance posture, framework breakdown, obligation-level status, evidence metadata (filename + sha256, never file contents), and the content hash.
-  - A downloadable attestation at `/trust/acme/attestation?download=1` whose `sha256(stableStringify(assessment_results))` matches the hash on the public page.
+  - A downloadable attestation at `/trust/deeppay/attestation?download=1` whose `sha256(stableStringify(assessment_results))` matches the hash on the public page.
 
 ---
 

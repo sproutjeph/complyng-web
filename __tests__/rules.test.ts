@@ -6,7 +6,7 @@ import type { BusinessProfile } from "@/lib/rules/types";
 const fixedNow = new Date("2026-05-01T00:00:00Z");
 
 const fintech: BusinessProfile = {
-  name: "Acme Pay",
+  name: "DeepPay",
   entityType: "fintech",
   processesPersonalData: true,
   userCountNG: 250_000,
