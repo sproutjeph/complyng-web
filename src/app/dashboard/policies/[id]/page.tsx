@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AlertTriangle, ArrowLeft, Play, Loader2 } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Loader2 } from "lucide-react";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { requireUserId } from "@/lib/profile";
 import { getPolicyById, listGapFindingsByPolicy } from "@/lib/db/policy";
 import { runGapAnalysis } from "@/app/dashboard/policies/gap-actions";
+import { GapAnalysisButton } from "./gap-analysis-button";
 
 export const dynamic = "force-dynamic";
 
@@ -57,10 +57,7 @@ export default async function PolicyDetailPage({
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <form action={runGapAnalysis}>
             <input type="hidden" name="policyId" value={policy.id} />
-            <Button type="submit">
-              <Play />
-              {gaps.length === 0 ? "Run gap analysis" : "Re-run gap analysis"}
-            </Button>
+            <GapAnalysisButton hasExistingGaps={gaps.length > 0} />
           </form>
           {gaps.length > 0 && (
             <span className="text-sm text-muted-foreground">
