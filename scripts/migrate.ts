@@ -173,6 +173,41 @@ async function main() {
     )
   `;
 
+  console.log("Creating regulatory_source_snapshot table…");
+  await db`
+    CREATE TABLE IF NOT EXISTS regulatory_source_snapshot (
+      id              BIGSERIAL   PRIMARY KEY,
+      framework_code  TEXT        NOT NULL,
+      source_url      TEXT        NOT NULL,
+      content_hash    TEXT        NOT NULL,
+      content         TEXT        NOT NULL,
+      fetched_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await db`
+    CREATE INDEX IF NOT EXISTS regulatory_source_snapshot_framework_idx
+    ON regulatory_source_snapshot (framework_code, fetched_at DESC)
+  `;
+
+  console.log("Creating regulatory_change_event table…");
+  await db`
+    CREATE TABLE IF NOT EXISTS regulatory_change_event (
+      id                      BIGSERIAL   PRIMARY KEY,
+      framework_code          TEXT        NOT NULL,
+      previous_snapshot_id    BIGINT      REFERENCES regulatory_source_snapshot(id),
+      current_snapshot_id     BIGINT      NOT NULL REFERENCES regulatory_source_snapshot(id),
+      summary                 TEXT        NOT NULL,
+      status                  TEXT        NOT NULL DEFAULT 'new',
+      affected_policy_count   INTEGER     NOT NULL DEFAULT 0,
+      detected_at             TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      applied_at              TIMESTAMPTZ
+    )
+  `;
+  await db`
+    CREATE INDEX IF NOT EXISTS regulatory_change_event_status_idx
+    ON regulatory_change_event (status, detected_at DESC)
+  `;
+
   const [{ count }] = await db`SELECT COUNT(*)::int AS count FROM regulatory_chunks`;
   const [{ profiles }] = await db`SELECT COUNT(*)::int AS profiles FROM business_profile`;
   const [{ policies }] = await db`SELECT COUNT(*)::int AS policies FROM policy_document`;
