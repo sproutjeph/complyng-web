@@ -6,6 +6,7 @@ import { listEvidenceByUser } from "@/lib/db/evidence";
 import { ScoreCard } from "@/components/dashboard/score-card";
 import { ObligationRow } from "@/components/dashboard/obligation-row";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
+import { RegulatorChangeBanner } from "@/components/dashboard/regulator-change-banner";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
@@ -68,6 +69,8 @@ export default async function DashboardPage() {
             </Link>
           </div>
         </div>
+
+        <RegulatorChangeBanner />
 
         <ScoreCard
           score={score}

@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Shield, MessageSquare, LayoutDashboard, User, FileText, Globe2 } from "lucide-react";
+import { BellRing, Shield, MessageSquare, LayoutDashboard, User, FileText, Globe2 } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { label: "Obligations", href: "/dashboard", icon: LayoutDashboard },
   { label: "Policies", href: "/dashboard/policies", icon: FileText },
+  { label: "Changes", href: "/dashboard/changes", icon: BellRing },
   { label: "Trust", href: "/dashboard/trust", icon: Globe2 },
   { label: "Ask", href: "/dashboard/ask", icon: MessageSquare },
   { label: "Profile", href: "/dashboard/profile", icon: User },
