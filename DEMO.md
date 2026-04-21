@@ -5,7 +5,7 @@ Single-interface compliance across Nigeria's digital/ICT regulators (NITDA, NDPC
 ## What's in the box
 
 - `src/lib/rules/` — pure TypeScript rules engine. `(profile) + (frameworks) → ComputedObligation[]`.
-- `content/frameworks/*.json` — five framework definitions covering 34 obligations. Each row carries `sourceUrl` and `verifyStatus: "unverified"` because no counsel has reviewed them yet.
+- `content/frameworks/*.json` — six framework definitions covering 52 obligations. Each row carries `sourceUrl` and `verifyStatus: "unverified"` because no counsel has reviewed them yet.
 - `src/lib/llm/` — RAG pipeline (chunker, embedder, retriever, answerer) with Anthropic prompt caching.
 - `src/lib/db/` — `postgres` (porsager) client + profile repo (business_profile, obligation_completion).
 - `src/app/onboarding/` — 4-step wizard (basics → entity type → scale → licenses), resumable, DB-backed.
@@ -150,7 +150,7 @@ Takes ~1 minute end-to-end (most of it is the embedding pass). Run once before g
 
 - **Not legal advice.** Every obligation is marked `unverified`. Before any customer relies on these dates or amounts, a Nigerian lawyer must review each row.
 - **Not the full product yet.** The production plan pairs this web app with a Go API (`complyng-api`), WhatsApp delivery, email notifications, and a signed trust badge. Those remain out of scope for now.
-- **Not exhaustive.** 34 obligations is a credible slice, not the full surface. The JSON loader scales linearly — adding obligations 35–200 is a data task, not an engineering task.
+- **Not exhaustive.** 52 obligations is a credible slice, not the full surface. The JSON loader scales linearly — adding obligations 53–200 is a data task, not an engineering task.
 
 ## Why this design
 
