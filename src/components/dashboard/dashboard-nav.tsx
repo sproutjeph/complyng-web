@@ -1,14 +1,22 @@
 import Link from "next/link";
-import { BellRing, Shield, MessageSquare, LayoutDashboard, User, FileText, Globe2 } from "lucide-react";
+import { BellRing, Shield, MessageSquare, LayoutDashboard, User, FileText, Globe2, Sparkles, type LucideIcon } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const links = [
+type NavLink = {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string;
+};
+
+const links: readonly NavLink[] = [
   { label: "Obligations", href: "/dashboard", icon: LayoutDashboard },
   { label: "Policies", href: "/dashboard/policies", icon: FileText },
   { label: "Changes", href: "/dashboard/changes", icon: BellRing },
   { label: "Trust", href: "/dashboard/trust", icon: Globe2 },
   { label: "Ask", href: "/dashboard/ask", icon: MessageSquare },
+  { label: "Comply Agent", href: "/dashboard/comply-agent", icon: Sparkles, badge: "Soon" },
   { label: "Profile", href: "/dashboard/profile", icon: User },
 ] as const;
 
@@ -36,6 +44,11 @@ export function DashboardNav({ current }: { current: string }) {
               >
                 <Icon className="size-3.5" />
                 <span className="hidden sm:inline">{l.label}</span>
+                {l.badge && (
+                  <span className="hidden rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary sm:inline">
+                    {l.badge}
+                  </span>
+                )}
               </Link>
             );
           })}
