@@ -50,11 +50,9 @@ Rules:
 - Only set meets=true when the policy unambiguously covers the specific obligation.
 - Citations must be verbatim from the provided excerpts. Do not invent text.`;
 
-async function retrieveGaidChunks(obligation: Obligation, k = TOP_K): Promise<RegChunk[]> {
-  const query = `${obligation.title}. ${obligation.description}`;
-  const v = await embed(query, "RETRIEVAL_QUERY");
+async function retrieveGaidChunksByVec(queryVec: number[], k = TOP_K): Promise<RegChunk[]> {
   const db = getDb();
-  const vec = vectorLiteral(v);
+  const vec = vectorLiteral(queryVec);
   const rows = await db`
     SELECT clause_ref, source_url, text
     FROM regulatory_chunks
@@ -150,19 +148,20 @@ export async function analyseGaps(opts: {
 
   await deleteGapFindingsForPolicy(policyId, userId);
 
-  let findings = 0;
-  for (const obligation of gaid.obligations) {
-    const queryVec = await embed(
-      `${obligation.title}. ${obligation.description}`,
-      "RETRIEVAL_QUERY",
-    );
-    const [policyChunks, regChunks] = await Promise.all([
-      retrievePolicyChunks(policyId, queryVec, TOP_K),
-      retrieveGaidChunks(obligation, TOP_K),
-    ]);
+  const results = await Promise.all(
+    gaid.obligations.map(async (obligation) => {
+      const queryVec = await embed(
+        `${obligation.title}. ${obligation.description}`,
+        "RETRIEVAL_QUERY",
+      );
+      const [policyChunks, regChunks] = await Promise.all([
+        retrievePolicyChunks(policyId, queryVec, TOP_K),
+        retrieveGaidChunksByVec(queryVec, TOP_K),
+      ]);
 
-    const judgement = await judgeObligation(obligation, policyChunks, regChunks);
-    if (!judgement.meets) {
+      const judgement = await judgeObligation(obligation, policyChunks, regChunks);
+      if (judgement.meets) return false;
+
       await insertGapFinding({
         policyId,
         userId,
@@ -173,9 +172,10 @@ export async function analyseGaps(opts: {
         policyCitation: judgement.policy_citation,
         regulationCitation: judgement.regulation_citation,
       });
-      findings++;
-    }
-  }
+      return true;
+    }),
+  );
 
+  const findings = results.filter(Boolean).length;
   return { findings, considered: gaid.obligations.length };
 }
