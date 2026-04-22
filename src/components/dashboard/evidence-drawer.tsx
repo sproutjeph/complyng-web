@@ -86,7 +86,7 @@ export function EvidenceDrawer({
           </ul>
         )}
 
-        <form action={attachFileEvidence} className="space-y-2" encType="multipart/form-data">
+        <form action={attachFileEvidence} className="space-y-2">
           <input type="hidden" name="code" value={code} />
           <label className="block text-[0.65rem] font-medium uppercase tracking-wider text-muted-foreground">
             Upload file (PDF, PNG, CSV, JSON, MD, TXT; max 10MB)

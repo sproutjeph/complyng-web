@@ -4,9 +4,9 @@ function renderInline(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i}>{part.slice(2, -2)}</strong>;
+      return <strong key={`${i}-${part}`}>{part.slice(2, -2)}</strong>;
     }
-    return <span key={i}>{part}</span>;
+    return <span key={`${i}-${part}`}>{part}</span>;
   });
 }
 
@@ -19,13 +19,13 @@ export function MarkdownSummary({ text, className }: { text: string; className?:
         if (!trimmed) return null;
         if (trimmed.startsWith("- ")) {
           return (
-            <p key={i} className="flex gap-2">
+            <p key={`${i}-${trimmed}`} className="flex gap-2">
               <span aria-hidden className="select-none text-muted-foreground">•</span>
               <span>{renderInline(trimmed.slice(2))}</span>
             </p>
           );
         }
-        return <p key={i}>{renderInline(trimmed)}</p>;
+        return <p key={`${i}-${trimmed}`}>{renderInline(trimmed)}</p>;
       })}
     </div>
   );
